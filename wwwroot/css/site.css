@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif, Arial;
+}
+
+p{
+    font-size: 16px;
+}
+h1{
+    font-size: 56px;
+    font-weight: 800;
+}
+h2{
+    font-size: 46px;
+    font-weight: 700;
+}
+.modern-button {
+
+
+
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 12px 24px; /* Spacing inside the button */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: all 0.3s ease; /* Smooth hover effect */
+
+
+.modern-button:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Slight upward movement */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+}
+
+.modern-button:active {
+    transform: translateY(0); /* Reset position on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Reset shadow */
+    opacity: 0.9; /* Slightly dimmed */
+}
+

@@ -1,0 +1,93 @@
+﻿<div class="text-center">
+    <h2>Load Partial View Example</h2>
+
+
+    <div id="content">
+        <p>This is the original content. Click the button to load dynamic content.</p>
+    </div>
+
+ 
+    <button class="modern-button" id="loadDataButton">Load Partial Content</button>
+
+   
+    <button class="modern-button" id="resetContentButton">Reset Content</button>
+
+</div>
+
+<div class="text-center" style="height:100px;">
+    <h2>Product List</h2>
+     <div id="productsList">
+        <p>No products loaded</p>
+
+
+     </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Spara originalinnehåll för återställning
+            const originalContent = $('#content').html();
+
+            // Hämta dynamiskt innehåll för "content"-div
+            $('#loadDataButton').on('click', function () {
+                $.ajax({
+                    url: '/Home/GetAjaxContent', // Controller-action
+                    method: 'GET',
+                    success: function (data) {
+                        $('#content').html(data); // Uppdatera innehållet i "content"-div
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching partial view:", error);
+                    }
+                });
+            });
+
+            // Återställ originalinnehåll
+            $('#resetContentButton').on('click', function () {
+                $('#content').html(originalContent);
+            });
+
+          
+            $.ajax({
+                url: '/Home/Products', 
+                method: 'GET',
+                success: function (data) {
+                    const productsList = $('#productsList');
+                    var product = " ";
+                    productsList.empty(); 
+
+                    if (data.length === 0) {
+                        productsList.append('<p>No products available.</p>');
+                    } else {
+                        
+                        console.log(data); 
+
+                     
+                        data.forEach(function (product) {
+                           
+                            if (product.Name && product.Description) {
+                                productsList.append(
+                                    `<div class="product">
+                                                <h4>${product.Name}</h4>
+                                                <p>${product.Description}</p>
+                                            </div>`
+                                );
+                            } else {
+                                console.warn('Produkt saknar Name eller Description:', product);
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                    $('#productsList').html('<p>Failed to load products.</p>');
+                }
+            });
+        });
+    </script>
+}
+
